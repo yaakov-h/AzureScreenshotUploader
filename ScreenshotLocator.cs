@@ -16,8 +16,8 @@ namespace AzureUpload
             }
 
             var desktop = Environment.GetFolderPath(SpecialFolder.DesktopDirectory);
-            var screenshots = Directory.EnumerateFiles(desktop, "Screen Shot ????-??-?? at ??.??.?? ?m.png", SearchOption.TopDirectoryOnly);
-            return screenshots.OrderByDescending(s => s).FirstOrDefault();
+            var screenshots = new DirectoryInfo(desktop).EnumerateFiles("Screen Shot ????-??-?? at ??.??.?? ?m.png", SearchOption.TopDirectoryOnly);
+            return screenshots.OrderByDescending(s => s.CreationTimeUtc).FirstOrDefault()?.FullName;
         }
     }
 }

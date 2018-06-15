@@ -27,7 +27,7 @@ namespace AzureUpload
             var storageContainerName = Environment.GetEnvironmentVariable("AZ_STORAGE_CONTAINER_NAME");
             if (string.IsNullOrEmpty(storageContainerName))
             {
-                Console.Error.WriteLine("An Azure Storage account name  must be specified using the AZ_STORAGE_CONTAINER_NAME environment variable.");
+                Console.Error.WriteLine("An Azure Storage account name must be specified using the AZ_STORAGE_CONTAINER_NAME environment variable.");
                 return -3;
             }
 

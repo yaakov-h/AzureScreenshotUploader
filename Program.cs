@@ -58,6 +58,11 @@ namespace AzureUpload
                     Console.WriteLine(blob.Uri);
                 }
 
+                if (Environment.GetEnvironmentVariable("SCREENSHOT_DELETE_AFTER_UPLOAD") is var delete && bool.TryParse(delete, out var shouldDelete) && shouldDelete)
+                {
+                    File.Delete(screenshotPath);
+                }
+
                 return 0;
             }
             catch (StorageException ex)

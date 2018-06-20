@@ -53,13 +53,7 @@ namespace AzureUpload
                     var uri = new UriBuilder(cdnRoot);
                     uri.Path = fileName;
 
-                    // Omit :80 or :443 respectively.
-                    if (uri.Uri.IsDefaultPort)
-                    {
-                        uri.Port = -1;
-                    }
-
-                    Console.WriteLine(uri.ToString());
+                    Console.WriteLine(uri.Uri);
                 }
                 else
                 {

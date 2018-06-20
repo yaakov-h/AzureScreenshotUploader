@@ -45,12 +45,20 @@ namespace AzureUpload
                 
                 var fileName = Path.GetFileName(screenshotPath);
                 var blob = container.GetBlockBlobReference(fileName);
+                blob.Properties.ContentType = "image/jpeg";
                 await blob.UploadFromFileAsync(screenshotPath, AccessCondition.GenerateIfNotExistsCondition(), default(BlobRequestOptions), default(OperationContext)).ConfigureAwait(false);
 
                 if (Environment.GetEnvironmentVariable("AZ_CDN_ROOT") is var cdnRoot && !string.IsNullOrEmpty(cdnRoot))
                 {
                     var uri = new UriBuilder(cdnRoot);
                     uri.Path = fileName;
+
+                    // Omit :80 or :443 respectively.
+                    if (uri.Uri.IsDefaultPort)
+                    {
+                        uri.Port = -1;
+                    }
+
                     Console.WriteLine(uri.ToString());
                 }
                 else
